@@ -16,7 +16,11 @@ def manual_train_step(model: nn.Module, X: torch.Tensor, y: torch.Tensor, criter
     loss.backward()
     
     # update params
+    # no gradient tracking because we dont need to track the changes
+    # also no_grad is jsut a pytorch safeguard
     with torch.no_grad():
+        # loop through each param in the model parameters
+        # apply formaula z = z - lr*dz
         for param in model.parameters():
             param -= lr * param.grad
 
